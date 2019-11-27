@@ -94,7 +94,10 @@ function runCreate (argv) {
 
   Migrations.create(options)
     .then((path) => console.log(`Created ${path}`))
-    .catch(console.error.bind(null, 'Error while creating migrations:'))
+    .catch(() => {
+      console.error.bind(null, 'Error while creating migrations:')
+      process.exit(1)
+    })
 }
 
 function runMigrations (op, argv) {
@@ -103,7 +106,10 @@ function runMigrations (op, argv) {
 
   Migrations.migrate(options)
     .then(() => console.log('Finished successfully'))
-    .catch(console.error.bind(null, 'Error while running migrations:'))
+    .catch(() => {
+      console.error.bind(null, 'Error while running migrations:')
+      process.exit(1)
+    })
 }
 
 function logger (emitter) {
